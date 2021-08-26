@@ -69,7 +69,7 @@ OS : `Mac OS Big Sur version 11.4`
 
 ## ✅ 담당기능
 
-프로젝트 전체 구조를 express architecture에 맞춰서 구현했습니다. 
+프로젝트 전체 구조를 express MVC 패턴에 맞춰 architecture에 맞춰서 구현했습니다. 
 
 `config`
 - jwt decrypt
@@ -86,6 +86,16 @@ OS : `Mac OS Big Sur version 11.4`
 ## ✅  리팩토링
 `기업비즈니스 로직 제외한 코드`
 - 1차적으로 비즈니스 로직을 제외했지만 추가적으로 반영이 필요한 부분에 대해서 제외
+
+`mvc패턴에 맞춰 프로젝트 구조 재배치`
+- 기존 코드 :  `Raw query`를 사용하여 별도의 `model` 정의 없음 , 기업 요구사항에 따라 `routes` 파일에 `라우팅`과 `controller` 로직 모두 작성 
+- 리팩토링
+  - 확장성과 유지보수 관점에 따라 MVC패턴에 따라 작성
+  - 모듈화가 필요한 부분 재배치 (settings 폴더에 db_config, winston, tokenMiddleware 배치)
+  - raw query 이용하는 로직은 유지 -> 별도의 model은 작성하지 않음
+  - routes 폴더를 만들어 endpoint 별도 관리
+  - tokenMiddleware : 기존 메인 app.js에서 settings 폴더로 이동 후 모듈화
+  - mariaConnControllers : 기존 routes 로직에 같이 있던 부분을 Controllers로 이동 
 
  
 ## ✅ stack
