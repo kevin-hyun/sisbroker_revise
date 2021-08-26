@@ -1,4 +1,5 @@
 const conmaria = require("../settings/db_config.js");
+const logger = require("../settings/winston");
 
 const mariaConnQuery = async (query) => {
   let marconn;
@@ -14,4 +15,4 @@ const mariaConnQuery = async (query) => {
   }
 };
 
-modeule.exports = mariaConnQuery;
+module.exports = mariaConnQuery;
