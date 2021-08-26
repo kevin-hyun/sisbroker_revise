@@ -1,20 +1,12 @@
 var express = require("express");
 var app = express();
-const configRouter = require("./routes/config.js");
+const configRouter = require("./routes/config.route");
 const cors = require("cors");
-const jwt_decode = require("jwt-decode");
+const token = require("./settings/tokenMiddleware");
 
 app.use(express.json());
 app.use(cors());
 
-// token ==> jwt decrypt decorator
-function token(req, res, next) {
-  const token = req.header("Authorization");
-  const payload = jwt_decode(token);
-  const clientKeyId = payload["clientKeyID"];
-  res.locals.id = clientKeyId;
-  next();
-}
 app.use(token);
 app.use("/config", configRouter);
 

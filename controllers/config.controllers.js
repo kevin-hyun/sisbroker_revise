@@ -1,26 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const logger = require("../settings/winston");
-const conmaria = require("./db_config.js");
-
-const mariaConnQuery = async (query) => {
-  let marconn;
-  try {
-    marconn = await conmaria.mariaDb.getConnection();
-    const rows = await marconn.query(query);
-    logger.info("query completed");
-    marconn.end();
-    return rows;
-  } catch (e) {
-    logger.error(`${e}`);
-    console.log(e);
-  }
-};
+const mariaConnQuery = require("./mariaConn.controllers");
 
 //* res.locals.id === mideleware에서 가져온 token을 decrypt하면 나오는 clientkey_id
 
 //* JOB CREATE
-router.post("/", async (req, res, next) => {
+const doCreateJob = async (req, res, next) => {
   try {
     const data = req.body;
 
@@ -54,10 +40,10 @@ router.post("/", async (req, res, next) => {
     });
     logger.error(`${error.message} - job creation failed!`);
   }
-});
+};
 
 //*JOB LIST
-router.get("/list", async (req, res, next) => {
+const doReadJob = async (req, res, next) => {
   try {
     const result = await mariaConnQuery(
       `SELECT * FROM config WHERE client_key_id = ${res.locals.id}`
@@ -75,11 +61,12 @@ router.get("/list", async (req, res, next) => {
     });
     logger.error(`${error.message} - job list call failed!`);
   }
-});
+};
+
+//* JOB UPDATE/DELETE/TOGGLE use query parameter (clentkeyid + jobname + action)
 
 //*JOB UPDATE
-
-router.put("/", async (req, res, next) => {
+const doUpdateJob = async (req, res, next) => {
   try {
     const dataType = req.query.dataType;
     const action = req.query.action;
@@ -110,12 +97,10 @@ router.put("/", async (req, res, next) => {
     });
     logger.error(`${error.message} - job list update failed`);
   }
-});
+};
 
 //*JOB DELETE
-// query string --- clientkeyid + jobname + action
-
-router.delete("/", async (req, res, next) => {
+const doDeleteJob = async (req, res, next) => {
   try {
     const dataType = req.query.dataType;
     const action = req.query.action;
@@ -138,12 +123,10 @@ router.delete("/", async (req, res, next) => {
     });
     logger.error(`${error.message} - job deletion failed!`);
   }
-});
+};
 
 //*JOB TOGGLE ON/OFF if off(0)--> on(1)/ on(1)--> off(0)
-// query string --- clentkeyid + jobname + action
-
-router.post("/toggle", async (req, res, next) => {
+const doToggleJob = async (req, res, next) => {
   try {
     const dataType = req.body.dataType;
     const action = req.body.action;
@@ -183,6 +166,12 @@ router.post("/toggle", async (req, res, next) => {
       `${error.message} , ${dataType} ${action} - toggle control failed!`
     );
   }
-});
+};
 
-module.exports = router;
+module.exports = {
+  doCreateJob,
+  doReadJob,
+  doUpdateJob,
+  doDeleteJob,
+  doToggleJob,
+};
