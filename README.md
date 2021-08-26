@@ -61,7 +61,7 @@ OS : `Mac OS Big Sur version 11.4`
   - Delete Job
   - Job on/off toggle 
 
-'data'
+`data`
 - v1(old data) - v2(new data) 비교
 - 삭제 & 추가된 부분에 대한 labeling
 
