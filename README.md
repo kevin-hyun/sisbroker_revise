@@ -37,8 +37,11 @@ OS : `Mac OS Big Sur version 11.4`
 ```
 추가 설명 
 `jwt-decode` : jwt로 전달된 토큰 정보 decrypt를 위해 사용
+
 `mariadb` : ORM을 사용하지 않고 raw query를 사용해서 mariadb와 연결하고 소통하기 위해 사용
+
 `winston` : 서버 활동 (api 호출, sql query)에 대한 log와 error를 기록 위해 사용
+
 `winston-daily-rotatee-file` : 한달 단위로 로그를 파일로 관리하기 위해 사용
 
 
@@ -86,9 +89,8 @@ OS : `Mac OS Big Sur version 11.4`
 
  
 ## ✅ stack
-
-![https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black] : v1.7
-![https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white] : v14.17.3
-![https://img.shields.io/badge/Express.js-404D59?style=for-the-badge]: v4.17.1
+- <img alt="Javascript" src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"/>  : v1.7
+- <img alt="NodeJS" src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white"/>  : v14.17.3
+- <img alt="ExpressJS" src="https://img.shields.io/badge/Express.js-404D59?style=for-the-badge"/> : v4.17.1
 
 
