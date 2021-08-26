@@ -1,5 +1,5 @@
 # sisbroker_revise
-아이비즈 인턴 생활에서 작성한 코드를 기업비즈니스 로직을 제외한 부분만 정리
+아이비즈 인턴 생활에서 작성한 코드를 기업비즈니스 로직을 제외한 부분만 정리했습니다.
 
 
 ## ✅ Short Description
@@ -36,6 +36,7 @@ OS : `Mac OS Big Sur version 11.4`
 "winston-daily-rotate-file": "^4.5.5"
 ```
 추가 설명 
+
 `jwt-decode` : jwt로 전달된 토큰 정보 decrypt를 위해 사용
 
 `mariadb` : ORM을 사용하지 않고 raw query를 사용해서 mariadb와 연결하고 소통하기 위해 사용
@@ -46,6 +47,7 @@ OS : `Mac OS Big Sur version 11.4`
 
 
 ## ✅ 구현기능
+
 
 `user`
 - 회원가입- 교직원 정보 등록
@@ -69,16 +71,23 @@ OS : `Mac OS Big Sur version 11.4`
 
 ## ✅ 담당기능
 
-프로젝트 전체 구조를 express MVC 패턴에 맞춰 architecture에 맞춰서 구현했습니다. 
+<img width="512" alt="Screen Shot 2021-08-20 at 3 45 56 PM" src="https://user-images.githubusercontent.com/78840341/130917650-c7e140f1-d5fb-41dd-ab26-01853d38a7f1.png">
+<img width="603" alt="Screen Shot 2021-08-20 at 3 46 11 PM" src="https://user-images.githubusercontent.com/78840341/130917659-e7483f03-b684-4525-9a18-bccba35d1ed9.png">
+<img width="290" alt="Screen Shot 2021-08-26 at 4 13 00 PM" src="https://user-images.githubusercontent.com/78840341/130918222-863d0eac-0473-4479-903b-e1c911ae2d3e.png">
+
+
+프로젝트 전체 구조를 express MVC 패턴에 맞춰 architecture에 맞춰서 구현
 
 `config`
-- jwt decrypt
+- `tokenMiddleware`: user 파트에서 받은 JWT 토큰을 decrypt해서 controller에서 활용
+- `mariaConnController` : RawQuery를 변수로 받아 mariaDB에서 조회결과를 반환하는 모듈
 - Schedule Job API
-  - Create Job
-  - Read Job
-  - Update Job
-  - Delete Job
-  - Job on/off toggle 
+  - `doCreateJob` : Job의 생성
+  - `doReadJob` : 해당 대학의 Job list 조회
+  - `doUpdateJob`, `doDeleteJob` : token에서 받은 client_key_id와 query parameter 기반으로 Job을 특정하여 작동
+  - `dotoggleJob` : 토글 기능 지원을 위해 toggle on/off에 따라 toggle field 값이 0,1로 변함
+
+
 
  
  express middleware 개념 활용
